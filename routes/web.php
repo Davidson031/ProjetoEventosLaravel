@@ -19,14 +19,17 @@ Route::get('/events/create', [EventController::class, 'create'])->middleware('au
 
 Route::get('/events/{id}', [EventController::class, 'show']);
 
+Route::get('/events/edit/{id}', [EventController::class, 'edit'])->middleware('auth');
+
 Route::post('/events', [EventController::class, 'store']);
 
 Route::get('/contact', function () {
     return view('contact');
 });
 
+Route::delete('/events/{id}', [EventController::class, 'destroy'])->middleware('auth');
 
+Route::put('/events/update/{id}', [EventController::class, 'update'])->middleware('auth');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::get('/dashboard', [EventController::class, 'dashboard'])->middleware('auth');
+
